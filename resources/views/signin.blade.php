@@ -52,25 +52,17 @@
 <body>
     <div class="container">
         <h2>Login</h2>
-        <form method="post", action="{{route("registrar.usuario")}}" >
+        <form method="post", action="{{route("login.usuario")}}" >
             @csrf
             <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
-            </div>
-            <div class="form-group">
-                <label for="username">Username:</label>
+                <label for="username">Username o Email:</label>
                 <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
                 <label for="clave">Clave:</label>
                 <input type="password" id="clave" name="clave" required>
             </div>
-            <input type="submit" value="Sign Up">
+            <input type="submit" value="Sign In">
         </form>
     </div>
 </body>

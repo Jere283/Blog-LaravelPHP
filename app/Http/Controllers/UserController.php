@@ -31,8 +31,33 @@ class UserController extends Controller
                 return response()->json(['error' => 'Error registering user'], $statusCode);
             }
         } catch (\Exception $e) {
-            // Handle any exceptions that occur during the request
-            return response()->json(['error' => 'An error occurred while processing the request'], 500);
+            return response()->json(['error' => 'Ha ocurrido un error, no se pudo procesar la peticion'], 500);
+        }
+    }
+
+    public function loginUser(Request $request)
+    {
+        $guzzleClient = new Client();
+        $url = "http://localhost:8080/api/auth/signin";
+
+        try {
+            $response = $guzzleClient->post($url, [
+                'json' => [
+                    'usernameOrEmail' => $request->input('username'),
+                    'clave' => $request->input('clave'),
+                ],
+            ]);
+
+            $statusCode = $response->getStatusCode();
+            $responseData = json_decode($response->getBody(), true);
+
+            if ($statusCode === 200) {
+                return response()->json(['message' => 'User Signed in successfully'], 200);
+            } else {
+                return response()->json(['error' => 'Error signin user'], $statusCode);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Ha ocurrido un error, no se pudo procesar la peticion'], 500);
         }
     }
 }
