@@ -25,7 +25,8 @@ class postController extends Controller
             $responseData = json_decode($response->getBody(), true);
 
             if ($statusCode === 200) {
-                return response()->json(['message' => 'User registered successfully'], 200);
+                return view("inicio");
+                
             } else {
                 return response()->json(['error' => 'Error registering user'], $statusCode);
             }
@@ -33,5 +34,28 @@ class postController extends Controller
             return response()->json(['error' => 'Ha ocurrido un error, no se pudo procesar la peticion'], 500);
         }
     }
+
+    public function getAllPublicaciones()
+{
+    $guzzleClient = new Client();
+    $url = "http://localhost:8080/api/publicacion/all"; // Ajusta la URL según la ruta de tu microservicio
+
+    try {
+        $response = $guzzleClient->get($url);
+
+        $statusCode = $response->getStatusCode();
+        $responseData = json_decode($response->getBody(), true);
+
+        if ($statusCode === 200) {
+            // $responseData ahora contiene las publicaciones obtenidas desde el microservicio
+            // Puedes procesar los datos y pasarlos a la vista como sea necesario
+            return view("inicio", ['publicaciones' => $responseData]);
+        } else {
+            return response()->json(['error' => 'Error getting publicaciones'], $statusCode);
+        }
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Ha ocurrido un error, no se pudo procesar la petición'], 500);
+    }
+}
 
 }

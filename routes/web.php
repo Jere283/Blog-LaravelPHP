@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\postController;
-use App\Http\Controllers\PublicacionController;
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,4 +33,5 @@ Route::get('/inicio', function () {
 
 Route::post('/users', [UserController::class, 'registerUser'])->name('registrar.usuario');
 Route::post('/users2', [UserController::class, 'loginUser'])->name('login.usuario');
-Route::post('/publicacion', [PublicacionController::class, 'registerPublicacion'])->name('register.publicacion');
+Route::post('/publicacion', [postController::class, 'registerPublicacion'])->name('register.publicacion');
+Route::get('/publicacionALL', [postController::class, 'getAllPublicaciones'])->name('register.publicacion');
