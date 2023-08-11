@@ -150,9 +150,12 @@
                                   <div class="mb-3">
                                     
                                     <form method="POST" action="{{route("register.publicacion")}}">
+                                      @csrf
                                       <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Contenido</label>
-                                        <input name="exampleInputEmail1"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        <input name="exampleInputEmail1"  class="form-control" id="contenido" name="contenido" aria-describedby="emailHelp">
+                                        <label for="exampleInputEmail1" class="form-label">Contenido</label>
+                                        <input name="exampleInputEmail1"  class="form-control" id="titulo" name="titulo" aria-describedby="emailHelp">
                                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                                       </div>
                                     

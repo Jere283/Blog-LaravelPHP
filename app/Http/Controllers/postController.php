@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class postController extends Controller
@@ -9,13 +9,15 @@ class postController extends Controller
     public function registerPublicacion(Request $request)
     {
         $guzzleClient = new Client();
-        $url = "http://localhost:8080/api/publicaciones/crear";
+        $url = "http://localhost:8080/api/publicacion/crear";
 
         try {
             $response = $guzzleClient->post($url, [
                 'json' => [
-                    'contenido' => $request->input('exampleInputEmail1'),
-                    'likes'=> 0
+                    'contenido' => $request->input('contenido'),
+                    'likes'=> 0,
+                    'usuario'=> 1,
+                    'titulo' => $request->input('titulo')
                 ]
             ]);
 
