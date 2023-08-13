@@ -32,6 +32,15 @@ Route::get('/login', function () {
 Route::get('/inicio', function () {
     return view("inicio");
 });
+Route::get('/encuestas', function(){
+    return view("encuestas");
+});
+Route::get('/profile', function(){
+    return view('perfil');
+});
+Route::get('/estadisticas', function(){
+    return view('estadisticas');
+});
 
 Route::post('/users', [UserController::class, 'registerUser'])->name('registrar.usuario');
 Route::post('/users2', [UserController::class, 'loginUser'])->name('login.usuario');
