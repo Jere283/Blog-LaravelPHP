@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\postController;
+use App\Http\Controllers\likesController;
 use App\Http\Controllers\comentarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,4 +39,4 @@ Route::post('/publicacion', [postController::class, 'registerPublicacion'])->nam
 Route::get('/comentarios', [comentarioController::class, 'comentarioPublic']);
 Route::post('/comentarios/agregar', [comentarioController::class, 'registerComentary']);
 Route::post('/comentario/crear/id/{idpublicacion}', [ComentarioController::class, 'registerComentary'])->name('comentarios.agregar');
-
+Route::post('/dar/like/{idpublicacion}/{idusuario}', [likesController::class, 'giveLike'])->name('dar.like');

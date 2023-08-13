@@ -67,28 +67,20 @@
                 INICIO
             </h1>
             @php
-            // Obtener todas las publicaciones desde el controlador
-         
             $publicaciones = app('App\Http\Controllers\postController')->getAllPublicaciones();
-        
-            
-     
-        @endphp
-       
-            
+        @endphp 
             @foreach ($publicaciones as $publicacion)
-                  
+          @php
+          // Obtener todas las publicaciones desde el controlador
+          $publicacioneslikes= app('App\Http\Controllers\likesController')->getAllLikes( $publicacion['id']);
+      @endphp
             <h2>{{ $publicacion['titulo'] }}</h2>
-       
             <!-- Otros campos de la publicación -->
             <div class="card text-bg-dark mb-2 border border-secondary">
               <div class="card-body">
-                
                 <img src="https://pbs.twimg.com/profile_images/1486761402853380113/3ifAqala_400x400.jpg" class="img rounded-circle pb-2" alt="..." width="35px">
                 <p class="card-title d-inline fw-bold fs-5">  
                   {{ $publicacion['usuario']['nombre'] }}
-                  
-                  
                   <p class="fs-6 text-secondary d-inline fw-normal">{{ $publicacion['usuario']['nombre'] }}</p>
                   <p class="text-secondary d-inline fs-6 fw-normal">- 4h</p>
                   <button type="button" class="btn btn-dark"><i class="fi fi-rr-star fs-6"></i></button>
@@ -102,41 +94,38 @@
                       <li><a class="btn btn-dark" href="#">Seguir</a></li>
                     </ul>
                   </div>
-                </p>
-                
+                </p>  
                 <h5 class="card-title">
                   <span class="badge text-bg-info" ><i class="fi fi-br-check"></i> FC Barcelona</span>
                   <span class="badge text-bg-info"><i class="fi fi-br-check"></i> La Liga</span>
-                  
                 </h5>
                 <p class="card-text">{{ $publicacion['contenido'] }}</p>
-                
               </div>
               <div>
                   <center><img src="https://pbs.twimg.com/media/F3CU4GzWEAAX_oT?format=jpg&name=small" class="border border-secondary rounded-3 m-3 start-50"  alt="..." width="30%"></center>
               </div>
-              
               <div class="container text-center border-top border-secondary">
                   <div class="row align-items-start">
                     <div class="col">
                       <i class="fi fi-rr-comment text-secondary fs-5 comentar btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#modal{{ $loop->iteration }}"></i>
-             
                     </div>
                     <div class="col">
                       <i class="fi fi-rs-arrows-retweet text-secondary fs-5 btn btn-dark w-100"></i>
                     </div>
                     <div class="col">
-                      <i class="fi fi-rs-heart text-secondary fs-5 btn btn-dark w-100">{{ $publicacion['likes'] }}</i>
+
+                      <form  method="post" action="{{ route('dar.like', ['idpublicacion' => $publicacion['id'],'idusuario' => 3]) }}">
+                        @csrf
+                        <button style="background-color: transparent; border: none; padding: 0; cursor: pointer;" type="submit"><i class="fi fi-rs-heart text-secondary fs-5 btn btn-dark w-100">{{$publicacioneslikes}} </i></button>
+                      </form>
+                  
                     </div>
                     <div class="col">
                       <i class="fi fi-rr-bookmark text-secondary fs-5 btn btn-dark w-100"></i>
-                    </div>
-                    
+                    </div>  
                   </div>
               </div>
           </div>
-
-
               <!-- Modal  comentarios-->
          <div class="modal fade modal-lg" id="modal{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -176,16 +165,12 @@
                   </div>
                 @endforeach
             @endif
-
-          
-
-
                 <form method="POST" action="{{ route('comentarios.agregar', ['idpublicacion' => $publicacion['id']]) }}">
                   @csrf
-                
+
+
                     <label for="message-text" class="col-form-label">Comentario</label>
                     <input  class="form-control" id="contenidoComentario" name="contenidoComentario" aria-describedby="emailHelp">
-             
                    <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Comentar</button>
