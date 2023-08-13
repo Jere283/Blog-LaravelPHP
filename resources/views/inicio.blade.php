@@ -68,8 +68,13 @@
             </h1>
             @php
             // Obtener todas las publicaciones desde el controlador
+         
             $publicaciones = app('App\Http\Controllers\postController')->getAllPublicaciones();
+        
+            
+     
         @endphp
+       
             
             @foreach ($publicaciones as $publicacion)
                   
@@ -114,7 +119,7 @@
               <div class="container text-center border-top border-secondary">
                   <div class="row align-items-start">
                     <div class="col">
-                      <i class="fi fi-rr-comment text-secondary fs-5 comentar btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                      <i class="fi fi-rr-comment text-secondary fs-5 comentar btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#modal{{ $loop->iteration }}"></i>
              
                     </div>
                     <div class="col">
@@ -130,6 +135,68 @@
                   </div>
               </div>
           </div>
+
+
+              <!-- Modal  comentarios-->
+         <div class="modal fade modal-lg" id="modal{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content text-bg-dark" data-bs-theme="dark">
+              <div class="modal-header" data-bs-theme="dark">
+                <div>
+                  <p class="card-title d-inline fw-bold fs-5">  
+                    Comentarios
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+            <!-- generar comnetarios -->
+            @php
+                $comentarios = app('App\Http\Controllers\comentarioController')->comentarioPublicacion( $publicacion['id']);
+            @endphp
+            @if ($comentarios === null || count($comentarios) === 0)
+             <h2>No hay comentarios</h2>
+            @else
+                @foreach ($comentarios as $comentario)
+                   
+                    <div class="card text-bg-dark mb-2 border border-secondary">
+                      <div class="card-body">
+                        <img src="https://pbs.twimg.com/profile_images/1486761402853380113/3ifAqala_400x400.jpg" class="img rounded-circle pb-2" alt="..." width="35px">
+                        <p class="card-title d-inline fw-bold fs-5">  
+                          {{ $comentario['usuario']['nombre'] }}
+                          <p class="fs-6 text-secondary d-inline fw-normal"></p>
+                          <p class="text-secondary d-inline fs-6 fw-normal">- 4h</p>
+                          <button type="button" class="btn btn-dark"><i class="fi fi-rr-star fs-6"></i></button>
+                          <div class="dropdown d-inline position-absolute top-0 end-0">
+        
+                          </div>
+                        </p>
+                        </h5>
+                        <h5>{{ $comentario['contenido'] }}</h5>
+                      </div>
+                  </div>
+                @endforeach
+            @endif
+
+          
+
+
+                <form method="POST" action="{{ route('comentarios.agregar', ['idpublicacion' => $publicacion['id']]) }}">
+                  @csrf
+                
+                    <label for="message-text" class="col-form-label">Comentario</label>
+                    <input  class="form-control" id="contenidoComentario" name="contenidoComentario" aria-describedby="emailHelp">
+             
+                   <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Comentar</button>
+              </div>
+                </form>
+              </div>
+             
+              
+            </div>
+          </div>
+        </div>
     @endforeach
 
 
@@ -251,7 +318,7 @@
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
           </div>
-    >
+    
       </div>
       <div class="modal-footer">
         
@@ -261,104 +328,10 @@
   
 </div> 
       
-         <!-- Modal  comentarios-->
-         <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content text-bg-dark" data-bs-theme="dark">
-              <div class="modal-header" data-bs-theme="dark">
-                <div>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  <img src="https://pbs.twimg.com/profile_images/1486761402853380113/3ifAqala_400x400.jpg" class="img rounded-circle pb-2" alt="..." width="35px">
-                  <p class="card-title d-inline fw-bold fs-5">  
-                    Comentarios
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-            <!-- Otros campos de la publicación -->
-            <div class="card text-bg-dark mb-2 border border-secondary">
-              <div class="card-body">
-                <img src="https://pbs.twimg.com/profile_images/1486761402853380113/3ifAqala_400x400.jpg" class="img rounded-circle pb-2" alt="..." width="35px">
-                <p class="card-title d-inline fw-bold fs-5">  
-                  {{ $publicacion['usuario']['nombre'] }}
-                  <p class="fs-6 text-secondary d-inline fw-normal">{{ $publicacion['usuario']['nombre'] }}</p>
-                  <p class="text-secondary d-inline fs-6 fw-normal">- 4h</p>
-                  <button type="button" class="btn btn-dark"><i class="fi fi-rr-star fs-6"></i></button>
-                  <div class="dropdown d-inline position-absolute top-0 end-0">
-
-                  </div>
-                </p>
-                </h5>
-                <p class="card-text">{{ $publicacion['contenido'] }}</p>
-              </div>
-          </div>
-
-          <div class="card text-bg-dark mb-2 border border-secondary">
-            <div class="card-body">
-              <img src="https://pbs.twimg.com/profile_images/1486761402853380113/3ifAqala_400x400.jpg" class="img rounded-circle pb-2" alt="..." width="35px">
-              <p class="card-title d-inline fw-bold fs-5">  
-                {{ $publicacion['usuario']['nombre'] }}
-                <p class="fs-6 text-secondary d-inline fw-normal">{{ $publicacion['usuario']['nombre'] }}</p>
-                <p class="text-secondary d-inline fs-6 fw-normal">- 4h</p>
-                <button type="button" class="btn btn-dark"><i class="fi fi-rr-star fs-6"></i></button>
-                <div class="dropdown d-inline position-absolute top-0 end-0">
-
-                </div>
-              </p>
-              </h5>
-              <p class="card-text">{{ $publicacion['contenido'] }}</p>
-            </div>
-        </div>
 
 
-        <div class="card text-bg-dark mb-2 border border-secondary">
-          <div class="card-body">
-            <img src="https://pbs.twimg.com/profile_images/1486761402853380113/3ifAqala_400x400.jpg" class="img rounded-circle pb-2" alt="..." width="35px">
-            <p class="card-title d-inline fw-bold fs-5">  
-              {{ $publicacion['usuario']['nombre'] }}
-              <p class="fs-6 text-secondary d-inline fw-normal">{{ $publicacion['usuario']['nombre'] }}</p>
-              <p class="text-secondary d-inline fs-6 fw-normal">- 4h</p>
-              <button type="button" class="btn btn-dark"><i class="fi fi-rr-star fs-6"></i></button>
-              <div class="dropdown d-inline position-absolute top-0 end-0">
-
-              </div>
-            </p>
-            </h5>
-            <p class="card-text">{{ $publicacion['contenido'] }}</p>
-          </div>
-      </div>
 
 
-      <div class="card text-bg-dark mb-2 border border-secondary">
-        <div class="card-body">
-          <img src="https://pbs.twimg.com/profile_images/1486761402853380113/3ifAqala_400x400.jpg" class="img rounded-circle pb-2" alt="..." width="35px">
-          <p class="card-title d-inline fw-bold fs-5">  
-            {{ $publicacion['usuario']['nombre'] }}
-            <p class="fs-6 text-secondary d-inline fw-normal">{{ $publicacion['usuario']['nombre'] }}</p>
-            <p class="text-secondary d-inline fs-6 fw-normal">- 4h</p>
-            <button type="button" class="btn btn-dark"><i class="fi fi-rr-star fs-6"></i></button>
-            <div class="dropdown d-inline position-absolute top-0 end-0">
-
-            </div>
-          </p>
-          </h5>
-          <p class="card-text">{{ $publicacion['contenido'] }}</p>
-        </div>
-    </div>
-                <form>
-                  <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Comentario</label>
-                    <textarea class="form-control" id="message-text"></textarea>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Comentar</button>
-              </div>
-            </div>
-          </div>
-        </div>
         
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
