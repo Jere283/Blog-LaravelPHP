@@ -15,9 +15,6 @@
                 <li class="nav-item">
                     <a class="nav-link active fw-bold" href="http://localhost/futbolBlog/public/profile">Perfil</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active fw-bold" href="#">Notificaciones</a>
-                </li>
                 <li class="nav-item dropdown border-start">
                     <a class="nav-link dropdown-toggle fw-bold " href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -36,7 +33,6 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-
                     <a class="nav-link active fw-bold" aria-current="page" href="#" style=""
                         data-bs-toggle="modal" data-bs-target="#crearPublicacion">Nuevo Post +</a>
                 </li>
