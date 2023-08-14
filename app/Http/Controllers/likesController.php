@@ -49,5 +49,25 @@ class likesController extends Controller
 
         }
     }
+
+
+    public function giveUnLike(Request $request,$idpublicacion,$idusuario)
+    {
+        $guzzleClient = new Client();
+        $url = "http://localhost:8080/api/likes/unlike/$idpublicacion/$idusuario";
+
+        try {
+            $response = $guzzleClient->delete($url);
+            $statusCode = $response->getStatusCode();
+            if ($statusCode === 200) {
+               return view("inicio");  
+            } else {
+                return null;
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Ha ocurrido un error: ' . $e->getMessage()], 500);
+
+        }
+    }
     
 }

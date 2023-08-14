@@ -121,7 +121,11 @@
                   
                     </div>
                     <div class="col">
-                      <i class="fi fi-rr-bookmark text-secondary fs-5 btn btn-dark w-100"></i>
+                      <form  method="post" action="{{ route('dar.Unlike', ['idpublicacion' => $publicacion['id'],'idusuario' => 3]) }}">
+                        @csrf
+                        @method('DELETE') 
+                        <button style="background-color: transparent; border: none; padding: 0; cursor: pointer;" type="submit"><i class="fi fi-rr-bookmark text-secondary fs-5 btn btn-dark w-100"></i></button>
+                      </form>
                     </div>  
                   </div>
               </div>

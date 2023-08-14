@@ -49,3 +49,4 @@ Route::get('/comentarios', [comentarioController::class, 'comentarioPublic']);
 Route::post('/comentarios/agregar', [comentarioController::class, 'registerComentary']);
 Route::post('/comentario/crear/id/{idpublicacion}', [ComentarioController::class, 'registerComentary'])->name('comentarios.agregar');
 Route::post('/dar/like/{idpublicacion}/{idusuario}', [likesController::class, 'giveLike'])->name('dar.like');
+Route::delete('/dar/unlike/{idpublicacion}/{idusuario}', [likesController::class, 'giveUnLike'])->name('dar.Unlike');
