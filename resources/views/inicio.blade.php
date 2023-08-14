@@ -26,7 +26,7 @@
     @include('includes/navbar')
     <div class="container mt-4">
         <h1 class="text-white fw-bold">
-            INICIO {{ session('user')['username'] }}
+            Bienvenido {{ session('user')['username'] }}
         </h1>
         @php
             $publicaciones = app('App\Http\Controllers\postController')->getAllPublicaciones();

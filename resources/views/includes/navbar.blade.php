@@ -42,7 +42,7 @@
                 </li>
             </ul>
             <form class="d-flex" role="search">
-                <input class="form-control me-2 fw-bold" type="search" placeholder="BUSCAR" aria-label="Search">
+                <input class="form-control me-2 fw-bold" type="search" placeholder="Buscar..." aria-label="Search">
                 <button class="btn btn-outline-info fw-bold" type="submit">Buscar</button>
             </form>
         </div>
