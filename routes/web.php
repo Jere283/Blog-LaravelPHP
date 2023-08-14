@@ -4,6 +4,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\postController;
 use App\Http\Controllers\likesController;
 use App\Http\Controllers\comentarioController;
+use App\Http\Controllers\seguidoresController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,3 +53,5 @@ Route::post('/comentarios/agregar', [comentarioController::class, 'registerComen
 Route::post('/comentario/crear/id/{idpublicacion}', [ComentarioController::class, 'registerComentary'])->name('comentarios.agregar');
 Route::post('/dar/like/{idpublicacion}/{idusuario}', [likesController::class, 'giveLike'])->name('dar.like');
 Route::delete('/dar/unlike/{idpublicacion}/{idusuario}', [likesController::class, 'giveUnLike'])->name('dar.Unlike');
+Route::post('/seguir/{seguidorId}/{seguidoId}', [seguidoresController::class, 'seguirUsuario'])->name('seguir.usuario');
+Route::delete('quitar/seguir/{seguidorId}/{seguidoId}', [seguidoresController::class, 'quitarFollow'])->name('quitar.follow');

@@ -19,13 +19,15 @@
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'>
-</head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  </head>
 
 <body class="bg-dark">
     <!-- La nav bar esta ahora dentro de includes/navbar asi cualquier modificacion que hagas se hara en todos los que tengan navbar-->
     @include('includes/navbar')
     <div class="container mt-4">
-        <h1 class="text-white fw-bold">
+        <h1 style="color: #0dcaf0 !important" class="text-white fw-bold">
             Bienvenido {{ session('user')['username'] }}
         </h1>
         @php
@@ -44,9 +46,24 @@
                         class="img rounded-circle pb-2" alt="..." width="35px">
                     <p class="card-title d-inline fw-bold fs-5">
                         {{ $publicacion['usuario']['nombre'] }}
-                    <p class="fs-6 text-secondary d-inline fw-normal">{{ $publicacion['usuario']['nombre'] }}</p>
-                    <p class="text-secondary d-inline fs-6 fw-normal">- 4h</p>
-                    <button type="button" class="btn btn-dark"><i class="fi fi-rr-star fs-6"></i></button>
+                    <p class="fs-6 text-secondary d-inline fw-normal">{{ $publicacion['usuario']['username'] }}</p>
+                    <p class="text-secondary d-inline fs-6 fw-normal"></p>
+                    <form class="text-secondary d-inline fs-6 fw-normal" method="POST" action="{{ route('seguir.usuario', ['seguidorId' => session('user')['id'], 'seguidoId' => $publicacion['usuario']['id']]) }}" >
+                      @csrf
+            <button  type="submit"  class="btn btn-dark"><span class="material-symbols-outlined">close_fullscreen
+  </span></button>
+          </form>
+  
+          <form class="text-secondary d-inline fs-6 fw-normal" method="post" action="{{ route('quitar.follow', ['seguidorId' => session('user')['id'], 'seguidoId' => $publicacion['usuario']['id']]) }}" >
+            @csrf
+            @method('DELETE')
+  <button  type="submit"  class="btn btn-dark"><span class="material-symbols-outlined">
+    swap_horiz
+    </span></button>
+  </form>
+                    
+                      
+              
                     <div class="dropdown d-inline position-absolute top-0 end-0">
                         <button class="btn btn-dark d-inline" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
