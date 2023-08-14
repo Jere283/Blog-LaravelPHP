@@ -37,8 +37,8 @@ Route::get('/encuestas', function () {
 Route::get('/profile', function () {
     return view('perfil');
 });
-Route::get('/estadisticas', function () {
-    return view('estadisticas');
+Route::get('/destacados', function () {
+    return view('destacados');
 });
 
 Route::get("/profile", [UserController::class, "index"])->name('show.profile');
