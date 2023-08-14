@@ -52,7 +52,7 @@ class UserController extends Controller
             $responseData = json_decode($response->getBody(), true);
 
             if ($statusCode === 200) {
-                return response()->json(['message' => 'El usuario inicio sesion de manera exitosa'], 200);
+                return $responseData;
             } else if ($statusCode === 406) {
                 return response()->json(['error' => 'La clave o usuario estan incorrectos'], 406);
             } else {
