@@ -1,5 +1,9 @@
 @extends('layout')
+@extends('includes/header')
 @include('includes/navbar')
+@section('title')
+    Seccion destacados
+@endsection
 @section('content')
     <div class="container">
         <h3 class="text-center my-5">Analiticas y Estadisticas de Posts:</h3>
@@ -14,6 +18,7 @@
                                 <p class="card-text">Some quick example text to build on the card title and make up the bulk
                                     of the card's content.</p>
                                 <a href="#" class="btn btn-primary">Go somewhere</a>
+                                
                             </div>
                         </div>
                         <div class="card my-2">
