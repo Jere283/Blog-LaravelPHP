@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <link rel="shortcut icon" href="favicon_io (1)/favicon-16x16.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,19 +25,23 @@
             align-items: center;
             height: 100vh;
         }
+
         .container {
-            background-color: #fff;
+            background-color: #9d9d9d;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         label {
             font-weight: bold;
         }
+
         input[type="text"],
         input[type="email"],
         input[type="password"] {
@@ -36,23 +50,26 @@
             border: 1px solid #ccc;
             border-radius: 3px;
         }
+
         input[type="submit"] {
-            background-color: #007bff;
+            background-color: #000000;
             color: #fff;
             border: none;
             padding: 10px 15px;
             border-radius: 3px;
             cursor: pointer;
         }
+
         input[type="submit"]:hover {
-            background-color: #0056b3;
+            background-color: #3a3a3a;
         }
     </style>
 </head>
-<body>
+
+<body class="bg-dark">
     <div class="container">
         <h2>Login</h2>
-        <form method="post", action="{{route("login.usuario")}}" >
+        <form method="post", action="{{ route('login.usuario') }}">
             @csrf
             <div class="form-group">
                 <label for="username">Username o Email:</label>
@@ -66,4 +83,5 @@
         </form>
     </div>
 </body>
+
 </html>

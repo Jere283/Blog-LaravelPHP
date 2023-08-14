@@ -48,3 +48,5 @@
         </div>
     </div>
 </nav>
+
+@include('includes/modalPublicar')

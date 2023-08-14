@@ -55,8 +55,6 @@ class UserController extends Controller
                 $user = $responseData;
                 session(['user' => $user]);
                 return redirect()->route("show.profile");
-            } else if ($statusCode === 406) {
-                return response()->json(['error' => 'La clave o usuario estan incorrectos'], 406);
             } else {
                 return response()->json(['error' => 'Error al iniciar sesion'], $statusCode);
             }
@@ -70,5 +68,28 @@ class UserController extends Controller
         $user = session("user");
 
         return view('perfil', ['user' => $user]);
+    }
+
+    public function getPostFromUser($idUsuario)
+    {
+
+        $guzzleClient = new Client();
+        $url = "http://localhost:8080/api/publicacion/user/$idUsuario";
+
+        try {
+            $response = $guzzleClient->get($url);
+
+            $statusCode = $response->getStatusCode();
+            $responseData = json_decode($response->getBody(), true);
+
+            if ($statusCode == 200) {
+                return $responseData;
+            } else {
+                return response()->json(['error' => 'Error al obtener posts del usuario'], $statusCode);
+            }
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'El usuario no tiene posts'], 500);
+        }
     }
 }
