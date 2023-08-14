@@ -80,26 +80,10 @@
                             <i class="fi fi-rs-arrows-retweet text-secondary fs-5 btn btn-dark w-100"></i>
                         </div>
                         <div class="col">
-
-                            <form method="post"
-                                action="{{ route('dar.like', ['idpublicacion' => $publicacion['id'], 'idusuario' => session('user')['id']]) }}">
-                                @csrf
-                                <button style="background-color: transparent; border: none; padding: 0; cursor: pointer;"
-                                    type="submit"><i
-                                        class="fi fi-rs-heart text-secondary fs-5 btn btn-dark w-100">{{ $publicacioneslikes }}
-                                    </i></button>
-                            </form>
-
+                            <i class="fi fi-rs-heart text-secondary fs-5 btn btn-dark w-100">{{ $publicacioneslikes }}</i>
                         </div>
                         <div class="col">
-                            <form method="post"
-                                action="{{ route('dar.Unlike', ['idpublicacion' => $publicacion['id'], 'idusuario' => session('user')['id']]) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button style="background-color: transparent; border: none; padding: 0; cursor: pointer;"
-                                    type="submit"><i
-                                        class="fi fi-rr-bookmark text-secondary fs-5 btn btn-dark w-100"></i></button>
-                            </form>
+                            <i class="fi fi-rr-bookmark text-secondary fs-5 btn btn-dark w-100"></i>
                         </div>
                     </div>
                 </div>
@@ -154,8 +138,7 @@
                                 <input class="form-control" id="contenidoComentario" name="contenidoComentario"
                                     aria-describedby="emailHelp">
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Comentar</button>
                                 </div>
                             </form>
