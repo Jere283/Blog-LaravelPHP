@@ -52,7 +52,9 @@ class UserController extends Controller
             $responseData = json_decode($response->getBody(), true);
 
             if ($statusCode === 200) {
-                return $responseData;
+                $user = $responseData;
+                session(['user' => $user]);
+                return redirect()->route("show.profile");
             } else if ($statusCode === 406) {
                 return response()->json(['error' => 'La clave o usuario estan incorrectos'], 406);
             } else {
@@ -61,5 +63,12 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => 'La clave o usuario estan incorrectos'], 500);
         }
+    }
+
+    public function index()
+    {
+        $user = session("user");
+
+        return view('perfil', ['user' => $user]);
     }
 }

@@ -26,7 +26,7 @@
     @include('includes/navbar')
     <div class="container mt-4">
         <h1 class="text-white fw-bold">
-            INICIO
+            INICIO {{ session('user')['username'] }}
         </h1>
         @php
             $publicaciones = app('App\Http\Controllers\postController')->getAllPublicaciones();
@@ -36,7 +36,7 @@
                 // Obtener todas las publicaciones desde el controlador
                 $publicacioneslikes = app('App\Http\Controllers\likesController')->getAllLikes($publicacion['id']);
             @endphp
-            <h2>{{ $publicacion['titulo'] }}</h2>
+            <h2 class="text-white fw-bold">{{ $publicacion['titulo'] }}</h2>
             <!-- Otros campos de la publicación -->
             <div class="card text-bg-dark mb-2 border border-secondary">
                 <div class="card-body">
@@ -82,7 +82,7 @@
                         <div class="col">
 
                             <form method="post"
-                                action="{{ route('dar.like', ['idpublicacion' => $publicacion['id'], 'idusuario' => 3]) }}">
+                                action="{{ route('dar.like', ['idpublicacion' => $publicacion['id'], 'idusuario' => session('user')['id']]) }}">
                                 @csrf
                                 <button
                                     style="background-color: transparent; border: none; padding: 0; cursor: pointer;"
@@ -94,7 +94,7 @@
                         </div>
                         <div class="col">
                             <form method="post"
-                                action="{{ route('dar.Unlike', ['idpublicacion' => $publicacion['id'], 'idusuario' => 3]) }}">
+                                action="{{ route('dar.Unlike', ['idpublicacion' => $publicacion['id'], 'idusuario' => session('user')['id']]) }}">
                                 @csrf
                                 @method('DELETE')
                                 <button
@@ -151,6 +151,8 @@
                             <form method="POST"
                                 action="{{ route('comentarios.agregar', ['idpublicacion' => $publicacion['id']]) }}">
                                 @csrf
+
+
                                 <label for="message-text" class="col-form-label">Comentario</label>
                                 <input class="form-control" id="contenidoComentario" name="contenidoComentario"
                                     aria-describedby="emailHelp">
@@ -161,11 +163,17 @@
                                 </div>
                             </form>
                         </div>
+
+
                     </div>
                 </div>
             </div>
         @endforeach
+
+
     </div>
+
+
 
     <!--Modal agregar comentarios-->
     <!--  -->
@@ -202,8 +210,11 @@
                                 <div style="margin-top: 30px; margin-bottom:30px;" id="emailHelp" class="form-text">
                                     Selecciona la categoria que tu quieras</div>
 
+
+
                                 <div class="container overflow-hidden text-center">
                                     <div class="row gy-5">
+
                                         <div class="col-6">
                                             <center>
                                                 <div class="card p-3"
@@ -218,6 +229,7 @@
                                                     </div>
                                                 </div>
                                             </center>
+
                                         </div>
 
                                         <div class="col-6">
@@ -234,39 +246,7 @@
                                                     </div>
                                                 </div>
                                             </center>
-                                        </div>
 
-
-                                        <div class="col-6">
-                                            <center>
-                                                <div class="card p-3"
-                                                    style="width: 18rem;   padding: 0rem!important; " class="">
-                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6U4mr04bv7Gg1UIBZfjuEKBRJaFIGnNfxkw"
-                                                        class="card-img-top" alt="...">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Card title</h5>
-                                                        <p class="card-text">Some quick example text to build on the
-                                                            card title and make up the bulk of the card's content.</p>
-                                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                    </div>
-                                                </div>
-                                            </center>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <center>
-                                                <div class="card p-3"
-                                                    style="width: 18rem;   padding: 0rem!important; " class="">
-                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6U4mr04bv7Gg1UIBZfjuEKBRJaFIGnNfxkw"
-                                                        class="card-img-top" alt="...">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Card title</h5>
-                                                        <p class="card-text">Some quick example text to build on the
-                                                            card title and make up the bulk of the card's content.</p>
-                                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                    </div>
-                                                </div>
-                                            </center>
                                         </div>
 
 
@@ -286,29 +266,82 @@
                                             </center>
 
                                         </div>
+
+
+                                        <div class="col-6">
+                                            <center>
+                                                <div class="card p-3"
+                                                    style="width: 18rem;   padding: 0rem!important; " class="">
+                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6U4mr04bv7Gg1UIBZfjuEKBRJaFIGnNfxkw"
+                                                        class="card-img-top" alt="...">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Card title</h5>
+                                                        <p class="card-text">Some quick example text to build on the
+                                                            card title and make up the bulk of the card's content.</p>
+                                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                    </div>
+                                                </div>
+                                            </center>
+
+                                        </div>
+
+
+                                        <div class="col-6">
+                                            <center>
+                                                <div class="card p-3"
+                                                    style="width: 18rem;   padding: 0rem!important; " class="">
+                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6U4mr04bv7Gg1UIBZfjuEKBRJaFIGnNfxkw"
+                                                        class="card-img-top" alt="...">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Card title</h5>
+                                                        <p class="card-text">Some quick example text to build on the
+                                                            card title and make up the bulk of the card's content.</p>
+                                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                    </div>
+                                                </div>
+                                            </center>
+
+                                        </div>
+
+
+
+
+
                                     </div>
+
+
+
+
                                 </div>
+
+
                             </div>
                     </div>
+
+
                     <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
+
             </div>
             <div class="modal-footer">
+
             </div>
         </div>
     </div>
+
     </div>
 
-    <script src="../resources/js/controller.js">
-        < script src = "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity = "sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin = "anonymous" >
-            <
-            /> <
-            script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
-        integrity = "sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
-        crossorigin = "anonymous" >
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous">
     </script>
 </body>
 

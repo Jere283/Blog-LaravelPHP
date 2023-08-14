@@ -6,7 +6,7 @@
         <div class="card">
             <div class="row my-2">
                 <div class="col-6">
-                    <h5>Nombre de Usuario:</h5>
+                    <h5>Nombre de Usuario: {{ session('user')['username'] }}</h5>
                 </div>
                 <div class="col-6">
                     <h5>Publicaciones creadas:</h5>
@@ -14,10 +14,10 @@
             </div>
             <div class="row my-2">
                 <div class="col-6">
-                    <h5>Correo de usuario:</h5>
+                    <h5>Correo de usuario:{{ session('user')['email'] }}</h5>
                 </div>
                 <div class="col-6">
-                    
+
                 </div>
             </div>
         </div>

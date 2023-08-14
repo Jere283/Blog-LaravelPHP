@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -10,18 +11,18 @@ class likesController extends Controller
     {
         $guzzleClient = new Client();
         $url = "http://localhost:8080/api/likes/publicacion/$idpublicacion"; // Ajusta la URL según la ruta de tu microservicio
-    
+
         try {
             $response = $guzzleClient->get($url);
-    
+
             $statusCode = $response->getStatusCode();
-           
-           
+
+
             if ($statusCode === 200) {
                 // $responseData ahora contiene las publicaciones obtenidas desde el microservicio
                 // Puedes procesar los datos y pasarlos a la vista como sea necesario
-                $responseData =$response->getBody();
-            return $responseData;
+                $responseData = $response->getBody();
+                return $responseData;
             } else {
                 return response()->json(['error' => 'Error getting publicaciones'], $statusCode);
             }
@@ -31,7 +32,7 @@ class likesController extends Controller
     }
 
 
-    public function giveLike(Request $request,$idpublicacion,$idusuario)
+    public function giveLike(Request $request, $idpublicacion, $idusuario)
     {
         $guzzleClient = new Client();
         $url = "http://localhost:8080/api/likes/darlike/$idpublicacion/$idusuario";
@@ -40,7 +41,7 @@ class likesController extends Controller
             $response = $guzzleClient->post($url);
             $statusCode = $response->getStatusCode();
             if ($statusCode === 200) {
-               return view("inicio");  
+                return redirect()->route('inicio');
             } else {
                 return null;
             }
@@ -51,7 +52,7 @@ class likesController extends Controller
     }
 
 
-    public function giveUnLike(Request $request,$idpublicacion,$idusuario)
+    public function giveUnLike(Request $request, $idpublicacion, $idusuario)
     {
         $guzzleClient = new Client();
         $url = "http://localhost:8080/api/likes/unlike/$idpublicacion/$idusuario";
@@ -60,7 +61,7 @@ class likesController extends Controller
             $response = $guzzleClient->delete($url);
             $statusCode = $response->getStatusCode();
             if ($statusCode === 200) {
-               return view("inicio");  
+                return redirect()->route('inicio');
             } else {
                 return null;
             }
@@ -69,5 +70,5 @@ class likesController extends Controller
 
         }
     }
-    
+
 }
