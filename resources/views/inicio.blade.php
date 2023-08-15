@@ -48,13 +48,18 @@
                         {{ $publicacion['usuario']['nombre'] }}
                     <p class="fs-6 text-secondary d-inline fw-normal">{{ $publicacion['usuario']['username'] }}</p>
                     <p class="text-secondary d-inline fs-6 fw-normal"></p>
-                    <form class="text-secondary d-inline fs-6 fw-normal" method="POST" action="{{ route('seguir.usuario', ['seguidorId' => session('user')['id'], 'seguidoId' => $publicacion['usuario']['id']]) }}" >
+                   
+                   <!-- seguidores-->
+                   @php
+                       $seguidores = app('App\Http\Controllers\seguidoresController')->getAllSeguidores($publicacion['usuario']['id']);
+                   @endphp
+                    <form class="text-secondary d-inline fs-6 fw-normal" method="POST" action="{{ route('seguir.usuario', ['seguidorId' => $publicacion['usuario']['id'], 'seguidoId' =>session('user')['id']  ]) }}" >
                       @csrf
             <button  type="submit"  class="btn btn-dark"><span class="material-symbols-outlined">close_fullscreen
-  </span></button>
+  </span>{{$seguidores}}</button>
           </form>
   
-          <form class="text-secondary d-inline fs-6 fw-normal" method="post" action="{{ route('quitar.follow', ['seguidorId' => session('user')['id'], 'seguidoId' => $publicacion['usuario']['id']]) }}" >
+          <form class="text-secondary d-inline fs-6 fw-normal" method="post" action="{{ route('quitar.follow', ['seguidorId' => $publicacion['usuario']['id'], 'seguidoId' =>session('user')['id'] ]) }}" >
             @csrf
             @method('DELETE')
   <button  type="submit"  class="btn btn-dark"><span class="material-symbols-outlined">
