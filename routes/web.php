@@ -29,15 +29,14 @@ Route::get('/register', function () {
 
 Route::get('/login', function () {
     return view("signin");
-});
+})->name('login.user');
 
 Route::get('/inicio', [postController::class, "index"])->name("inicio");
 
+Route::get('/logout', [UserController::class, "logoutUser"])->name("logout.user");
+
 Route::get('/encuestas', function () {
     return view("encuestas");
-});
-Route::get('/profile', function () {
-    return view('perfil');
 });
 Route::get('/destacados', function () {
     return view('destacados');

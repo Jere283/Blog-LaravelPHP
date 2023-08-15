@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -63,13 +64,6 @@ class UserController extends Controller
         }
     }
 
-    public function index()
-    {
-        $user = session("user");
-
-        return view('perfil', ['user' => $user]);
-    }
-
     public function getPostFromUser($idUsuario)
     {
 
@@ -92,4 +86,23 @@ class UserController extends Controller
             return response()->json(['error' => 'El usuario no tiene posts'], 500);
         }
     }
+
+
+    //get methods for routes
+
+    public function logoutUser()
+    {
+        Session::forget('user');
+
+        return redirect()->route('login.user');
+    }
+
+    public function index()
+    {
+        $user = session("user");
+
+        return view('perfil', ['user' => $user]);
+    }
+
+
 }

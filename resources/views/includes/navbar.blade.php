@@ -28,7 +28,8 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item fw-bold" href="#"><i class="fi fi-rr-exit"></i> Cerrar
+                        <li><a class="dropdown-item fw-bold" href="http://localhost/futbolBlog/public/logout"><i
+                                    class="fi fi-rr-exit"></i> Cerrar
                                 Sesion</a></li>
                     </ul>
                 </li>
