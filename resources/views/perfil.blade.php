@@ -4,6 +4,8 @@
     @php
         $publicaciones = app('App\Http\Controllers\UserController')->getPostFromUser(session('user')['id']);
         $total = 0;
+        $seguidores = app('App\Http\Controllers\seguidoresController')->getAllSeguidores(session('user')['id']);
+                   
     @endphp
 
     @foreach ($publicaciones as $publicacion)
@@ -26,7 +28,7 @@
                     <h5>Correo de usuario:{{ session('user')['email'] }}</h5>
                 </div>
                 <div class="col-6">
-
+                    <h5>Seguidores: {{$seguidores}}</h5>
                 </div>
             </div>
         </div>
