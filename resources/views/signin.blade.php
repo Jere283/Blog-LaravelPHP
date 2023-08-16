@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="shortcut icon" href="favicon_io (1)/favicon-16x16.png" />
+    <link rel="shortcut icon" href="../resources/views/favicon_io/favicon-16x16.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
@@ -63,13 +63,22 @@
         input[type="submit"]:hover {
             background-color: #3a3a3a;
         }
+
+        .register-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .register-link a {
+            color: #0000ff;
+        }
     </style>
 </head>
 
 <body class="bg-dark">
     <div class="container">
-        <h2>Login</h2>
-        <form method="post", action="{{ route('login.usuario') }}">
+        <h2>Iniciar Sesion</h2>
+        <form method="post" action="{{ route('login.usuario') }}">
             @csrf
             <div class="form-group">
                 <label for="username">Username o Email:</label>
@@ -81,6 +90,12 @@
             </div>
             <input type="submit" value="Sign In">
         </form>
+        <div style="font-weight: bold" class="register-link">
+            No tienes cuenta? <a href="{{ route('register.view') }}">Regístrate aquí</a>
+        </div>
+        <div style="font-weight: bold" class="register-link">
+            <a href="{{ route('inicio.logout') }}">Regresa al inicio</a>
+        </div>
     </div>
 </body>
 

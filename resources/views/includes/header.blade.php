@@ -7,7 +7,7 @@
             padding: 0rem !important;
         }
     </style>
-    <link rel="shortcut icon" href="favicon_io (1)/favicon-16x16.png" />
+    <link rel="shortcut icon" href="../resources/views/favicon_io/favicon-16x16.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>

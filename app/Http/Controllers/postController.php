@@ -11,6 +11,11 @@ class postController extends Controller
     {
         return view('inicio');
     }
+
+    public function indexOut()
+    {
+        return view('logout');
+    }
     public function registerPublicacion(Request $request)
     {
         $guzzleClient = new Client();

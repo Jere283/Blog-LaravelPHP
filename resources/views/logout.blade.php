@@ -9,8 +9,12 @@
         .p-3 {
             padding: 0rem !important;
         }
+
+        .center {
+            margin-top: 8px;
+        }
     </style>
-    <link rel="shortcut icon" href="../resources/views" />
+    <link rel="shortcut icon" href="favicon_io (1)/favicon-16x16.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
@@ -27,10 +31,10 @@
 
 <body class="bg-dark">
     <!-- La nav bar esta ahora dentro de includes/navbar asi cualquier modificacion que hagas se hara en todos los que tengan navbar-->
-    @include('includes/navbar')
+    @include('includes/logoutNav')
     <div class="container mt-4">
         <h1 style="color: #0dcaf0 !important" class="text-white fw-bold">
-            Bienvenido {{ session('user')['username'] }}
+            Inicio
         </h1>
         @php
             $publicaciones = app('App\Http\Controllers\postController')->getAllPublicaciones();
@@ -40,10 +44,12 @@
                 // Obtener todas las publicaciones desde el controlador
                 $publicacioneslikes = app('App\Http\Controllers\likesController')->getAllLikes($publicacion['id']);
             @endphp
+
             <!-- Otros campos de la publicación -->
             <div class="card text-bg-dark mb-2 border border-secondary">
-                <h2 style="margin-bottom:15px" class="text-white fw-bold">{{ $publicacion['titulo'] }}</h2>
+
                 <div class="card-body">
+                    <h2 style="margin-bottom:15px" class="text-white fw-bold">{{ $publicacion['titulo'] }}</h2>
                     <img src="https://pbs.twimg.com/profile_images/1486761402853380113/3ifAqala_400x400.jpg"
                         class="img rounded-circle pb-2" alt="..." width="35px">
                     <p class="card-title d-inline fw-bold fs-5">
@@ -55,23 +61,8 @@
                     @php
                         $seguidores = app('App\Http\Controllers\seguidoresController')->getAllSeguidores($publicacion['usuario']['id']);
                     @endphp
-                    <form class="text-secondary d-inline fs-6 fw-normal" method="POST"
-                        action="{{ route('seguir.usuario', ['seguidorId' => $publicacion['usuario']['id'], 'seguidoId' => session('user')['id']]) }}">
-                        @csrf
-                        <button type="submit" class="btn btn-dark"><span
-                                class="material-symbols-outlined">close_fullscreen
-                            </span>{{ $seguidores }}</button>
-                    </form>
-
-                    <form class="text-secondary d-inline fs-6 fw-normal" method="post"
-                        action="{{ route('quitar.follow', ['seguidorId' => $publicacion['usuario']['id'], 'seguidoId' => session('user')['id']]) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-dark"><span class="material-symbols-outlined">
-                                swap_horiz
-                            </span></button>
-                    </form>
-
+                    <button type="submit" class="btn btn-dark"><span class="material-symbols-outlined">close_fullscreen
+                        </span>{{ $seguidores }}</button>
 
 
                     <div class="dropdown d-inline position-absolute top-0 end-0">
@@ -104,31 +95,18 @@
                                 data-bs-toggle="modal" data-bs-target="#modal{{ $loop->iteration }}"></i>
                         </div>
                         <div class="col">
-                            <i class="fi fi-rs-arrows-retweet text-secondary fs-5 btn btn-dark w-100"></i>
+                            <i style="margin-top: 8px;"
+                                class="fi fi-rs-arrows-retweet text-secondary fs-5 btn btn-dark w-100"></i>
                         </div>
                         <div class="col">
 
-                            <form method="post"
-                                action="{{ route('dar.like', ['idpublicacion' => $publicacion['id'], 'idusuario' => session('user')['id']]) }}">
-                                @csrf
-                                <button
-                                    style="background-color: transparent; border: none; padding: 0; cursor: pointer;"
-                                    type="submit"><i
-                                        class="fi fi-rs-heart text-secondary fs-5 btn btn-dark w-100">{{ $publicacioneslikes }}
-                                    </i></button>
-                            </form>
+                            <i class="fi fi-rs-heart text-secondary fs-5 btn btn-dark w-100">{{ $publicacioneslikes }}
+                            </i>
+
 
                         </div>
                         <div class="col">
-                            <form method="post"
-                                action="{{ route('dar.Unlike', ['idpublicacion' => $publicacion['id'], 'idusuario' => session('user')['id']]) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button
-                                    style="background-color: transparent; border: none; padding: 0; cursor: pointer;"
-                                    type="submit"><i
-                                        class="fi fi-rr-bookmark text-secondary fs-5 btn btn-dark w-100"></i></button>
-                            </form>
+                            <i class="fi fi-rr-bookmark text-secondary fs-5 btn btn-dark  w-100 "></i>
                         </div>
                     </div>
                 </div>
@@ -175,18 +153,16 @@
                                     </div>
                                 @endforeach
                             @endif
-                            <form method="POST"
-                                action="{{ route('comentarios.agregar', ['idpublicacion' => $publicacion['id']]) }}">
+                            <form method="#" action="#">
                                 @csrf
 
 
-                                <label for="message-text" class="col-form-label">Comentario</label>
-                                <input class="form-control" id="contenidoComentario" name="contenidoComentario"
-                                    aria-describedby="emailHelp">
+                                <p style="text-align: center;font-weight: bold; font-size: 20px;">Inicia Sesion Para
+                                    dejar un comentario</p>
                                 <div class="modal-footer">
+
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Comentar</button>
                                 </div>
                             </form>
                         </div>
@@ -199,13 +175,6 @@
 
 
     </div>
-
-
-
-    <!--Modal agregar comentarios-->
-    <!--  -->
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">

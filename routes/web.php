@@ -19,21 +19,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/register', [UserController::class, "registerView"])->name("register.view");
+Route::get('/login', [UserController::class, "SignInView"])->name('login.view');
 
-Route::get('/register', function () {
-    return view("register");
-});
-
-Route::get('/login', function () {
-    return view("signin");
-})->name('login.user');
-
-Route::get('/inicio', [postController::class, "index"])->name("inicio");
-
-Route::get('/logout', [UserController::class, "logoutUser"])->name("logout.user");
+Route::post('/users', [UserController::class, 'registerUser'])->name('registrar.usuario');
+Route::post('/users2', [UserController::class, 'loginUser'])->name('login.usuario');
 
 Route::get('/encuestas', function () {
     return view("encuestas");
@@ -42,15 +32,22 @@ Route::get('/destacados', function () {
     return view('destacados');
 });
 
-Route::get("/profile", [UserController::class, "index"])->name('show.profile');
+Route::group(["middleware" => "web-session"], function () {
+    Route::get('/inicio', [postController::class, "index"])->name("inicio");
+    Route::get('/logout', [UserController::class, "logoutUser"])->name("logout.user");
+    Route::get("/profile", [UserController::class, "index"])->name('show.profile');
+    Route::post('/comentarios/agregar', [comentarioController::class, 'registerComentary']);
 
-Route::post('/users', [UserController::class, 'registerUser'])->name('registrar.usuario');
-Route::post('/users2', [UserController::class, 'loginUser'])->name('login.usuario');
-Route::post('/publicacion', [postController::class, 'registerPublicacion'])->name('post.publicacion');
+    Route::post('/publicacion', [postController::class, 'registerPublicacion'])->name('post.publicacion');
+
+    Route::post('/comentario/crear/id/{idpublicacion}', [ComentarioController::class, 'registerComentary'])->name('comentarios.agregar');
+    Route::post('/dar/like/{idpublicacion}/{idusuario}', [likesController::class, 'giveLike'])->name('dar.like');
+    Route::delete('/dar/unlike/{idpublicacion}/{idusuario}', [likesController::class, 'giveUnLike'])->name('dar.Unlike');
+    Route::post('/seguir/{seguidorId}/{seguidoId}', [seguidoresController::class, 'seguirUsuario'])->name('seguir.usuario');
+    Route::delete('quitar/seguir/{seguidorId}/{seguidoId}', [seguidoresController::class, 'quitarFollow'])->name('quitar.follow');
+});
+
+
 Route::get('/comentarios', [comentarioController::class, 'comentarioPublic']);
-Route::post('/comentarios/agregar', [comentarioController::class, 'registerComentary']);
-Route::post('/comentario/crear/id/{idpublicacion}', [ComentarioController::class, 'registerComentary'])->name('comentarios.agregar');
-Route::post('/dar/like/{idpublicacion}/{idusuario}', [likesController::class, 'giveLike'])->name('dar.like');
-Route::delete('/dar/unlike/{idpublicacion}/{idusuario}', [likesController::class, 'giveUnLike'])->name('dar.Unlike');
-Route::post('/seguir/{seguidorId}/{seguidoId}', [seguidoresController::class, 'seguirUsuario'])->name('seguir.usuario');
-Route::delete('quitar/seguir/{seguidorId}/{seguidoId}', [seguidoresController::class, 'quitarFollow'])->name('quitar.follow');
+
+Route::get("/out", [postController::class, "indexOut"])->name('inicio.logout');

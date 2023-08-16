@@ -88,20 +88,30 @@ class UserController extends Controller
     }
 
 
-    //get methods for routes
-
     public function logoutUser()
     {
         Session::forget('user');
 
-        return redirect()->route('login.user');
+        return redirect()->route('login.view');
     }
+
+    // return views
 
     public function index()
     {
         $user = session("user");
 
         return view('perfil', ['user' => $user]);
+    }
+
+    public function registerView()
+    {
+        return view("register");
+    }
+
+    public function SignInView()
+    {
+        return view("signin");
     }
 
 
