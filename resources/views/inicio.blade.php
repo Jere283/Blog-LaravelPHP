@@ -87,8 +87,15 @@
                     </div>
                     </p>
                     <h5 class="card-title">
-                        <span class="badge text-bg-info"><i class="fi fi-br-check"></i> FC Barcelona</span>
-                        <span class="badge text-bg-info"><i class="fi fi-br-check"></i> La Liga</span>
+                        @php
+                        // Obtener todas las publicaciones desde el controlador
+                        $getCategorias = app('App\Http\Controllers\postController')->getAllCategoriasforId($publicacion['id']);
+                    @endphp
+    @foreach ($getCategorias as $getCategoria)
+    <span class="badge text-bg-info"><i class="fi fi-br-check"></i>{{$getCategoria['titulo']}}</span>
+    @endforeach
+                      
+                      
                     </h5>
                     <p class="card-text">{{ $publicacion['contenido'] }}</p>
                 </div>
