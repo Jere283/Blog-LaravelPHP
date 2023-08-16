@@ -5,6 +5,7 @@ use App\Http\Controllers\postController;
 use App\Http\Controllers\likesController;
 use App\Http\Controllers\comentarioController;
 use App\Http\Controllers\seguidoresController;
+use App\Http\Controllers\pruebaController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -51,3 +52,7 @@ Route::group(["middleware" => "web-session"], function () {
 Route::get('/comentarios', [comentarioController::class, 'comentarioPublic']);
 
 Route::get("/out", [postController::class, "indexOut"])->name('inicio.logout');
+
+
+///pruebaaa
+Route::post('/prueba2', [pruebaController::class, 'prueba'])->name('inicio.prueba');

@@ -14,7 +14,11 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <form method="POST" action="{{ route('post.publicacion') }}">
+                    @php
+                    // Obtener todas las publicaciones desde el controlador
+                    $categorias = app('App\Http\Controllers\postController')->getAllCategorias();
+                @endphp
+                    <form id="myForm" method="POST" action="{{ route('post.publicacion') }}">
                         @csrf
                         <div class="mb-3">
                             <label for="titulo" class="form-label">Titulo</label>
@@ -24,86 +28,17 @@
                                 aria-describedby="emailHelp">
                             <div style="margin-top: 30px; margin-bottom:30px;" id="emailHelp" class="form-text">
                                 Selecciona la categoria que tu quieras</div>
-                            <div class="container overflow-hidden text-center">
-                                <div class="row gy-5">
-                                    <div class="col-6">
-                                        <center>
-                                            <div class="card p-3" style="width: 18rem;   padding: 0rem!important; "
-                                                class="">
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6U4mr04bv7Gg1UIBZfjuEKBRJaFIGnNfxkw"
-                                                    class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title</h5>
-                                                    <p class="card-text">Some quick example text to build on the
-                                                        card title and make up the bulk of the card's content.</p>
-                                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                </div>
-                                            </div>
-                                        </center>
-                                    </div>
-                                    <div class="col-6">
-                                        <center>
-                                            <div class="card p-3" style="width: 18rem;   padding: 0rem!important; "
-                                                class="">
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6U4mr04bv7Gg1UIBZfjuEKBRJaFIGnNfxkw"
-                                                    class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title</h5>
-                                                    <p class="card-text">Some quick example text to build on the
-                                                        card title and make up the bulk of the card's content.</p>
-                                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                </div>
-                                            </div>
-                                        </center>
-                                    </div>
-                                    <div class="col-6">
-                                        <center>
-                                            <div class="card p-3" style="width: 18rem;   padding: 0rem!important; "
-                                                class="">
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6U4mr04bv7Gg1UIBZfjuEKBRJaFIGnNfxkw"
-                                                    class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title</h5>
-                                                    <p class="card-text">Some quick example text to build on the
-                                                        card title and make up the bulk of the card's content.</p>
-                                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                </div>
-                                            </div>
-                                        </center>
-                                    </div>
-                                    <div class="col-6">
-                                        <center>
-                                            <div class="card p-3" style="width: 18rem;   padding: 0rem!important; "
-                                                class="">
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6U4mr04bv7Gg1UIBZfjuEKBRJaFIGnNfxkw"
-                                                    class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title</h5>
-                                                    <p class="card-text">Some quick example text to build on the
-                                                        card title and make up the bulk of the card's content.</p>
-                                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                </div>
-                                            </div>
-                                        </center>
-                                    </div>
-                                    <div class="col-6">
-                                        <center>
-                                            <div class="card p-3" style="width: 18rem;   padding: 0rem!important; "
-                                                class="">
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6U4mr04bv7Gg1UIBZfjuEKBRJaFIGnNfxkw"
-                                                    class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title</h5>
-                                                    <p class="card-text">Some quick example text to build on the
-                                                        card title and make up the bulk of the card's content.</p>
-                                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                </div>
-                                            </div>
-                                        </center>
-                                    </div>
-                                </div>
-                            </div>
+               
                         </div>
+
+                      
+                           
+                            @foreach ($categorias as $categoria)
+                            <input type="checkbox" name="checkbox[]" value="{{$categoria['id']}}"> {{$categoria['titulo']}}<br>
+                            @endforeach
+                         
+                        
+                        
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -115,3 +50,32 @@
 </div>
 
 </div>
+
+
+
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe normalmente
+
+            var selectedCheckboxes = [];
+            var checkboxes = document.getElementsByName("checkbox[]");
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    selectedCheckboxes.push(checkboxes[i].value);
+                }
+            }
+
+            // Crear un campo oculto en el formulario para almacenar los IDs seleccionados como un array JSON
+            var hiddenInput = document.createElement("input");
+            hiddenInput.setAttribute("type", "hidden");
+            hiddenInput.setAttribute("name", "selectedIds");
+            hiddenInput.setAttribute("value", "[" + selectedCheckboxes.join(",") + "]");
+
+            // Agregar el campo oculto al formulario
+            document.getElementById("myForm").appendChild(hiddenInput);
+
+            // Enviar el formulario
+            document.getElementById("myForm").submit();
+        });
+    </script>
