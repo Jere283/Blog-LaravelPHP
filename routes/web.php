@@ -26,13 +26,6 @@ Route::get('/login', [UserController::class, "SignInView"])->name('login.view');
 Route::post('/users', [UserController::class, 'registerUser'])->name('registrar.usuario');
 Route::post('/users2', [UserController::class, 'loginUser'])->name('login.usuario');
 
-Route::get('/encuestas', function () {
-    return view("encuestas");
-});
-Route::get('/destacados', function () {
-    return view('destacados');
-});
-
 Route::group(["middleware" => "web-session"], function () {
     Route::get('/inicio', [postController::class, "index"])->name("inicio");
     Route::get('/logout', [UserController::class, "logoutUser"])->name("logout.user");
@@ -52,7 +45,3 @@ Route::group(["middleware" => "web-session"], function () {
 Route::get('/comentarios', [comentarioController::class, 'comentarioPublic']);
 
 Route::get("/out", [postController::class, "indexOut"])->name('inicio.logout');
-
-
-///pruebaaa
-Route::post('/prueba2', [pruebaController::class, 'prueba'])->name('inicio.prueba');
