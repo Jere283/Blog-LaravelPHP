@@ -47,8 +47,8 @@
                     <p class="card-title d-inline fw-bold fs-5">
                         {{ $publicacion['usuario']['nombre'] }}
                     <p class="fs-6 text-secondary d-inline fw-normal">{{ $publicacion['usuario']['nombre'] }}</p>
-                    <p class="text-secondary d-inline fs-6 fw-normal">- 4h</p>
-                    <button type="button" class="btn btn-dark"><i class="fi fi-rr-star fs-6"></i></button>
+                   
+                   
                     <div class="dropdown d-inline position-absolute top-0 end-0">
                         <button class="btn btn-dark d-inline" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -78,9 +78,7 @@
                             <i class="fi fi-rr-comment text-secondary fs-5 comentar btn btn-dark w-100"
                                 data-bs-toggle="modal" data-bs-target="#modal{{ $loop->iteration }}"></i>
                         </div>
-                        <div class="col">
-                            <i class="fi fi-rs-arrows-retweet text-secondary fs-5 btn btn-dark w-100"></i>
-                        </div>
+                    
                         <div class="col">
                             <i class="fi fi-rs-heart text-secondary fs-5 btn btn-dark w-100">{{ $publicacioneslikes }}</i>
                         </div>

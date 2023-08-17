@@ -110,9 +110,7 @@
                             <i class="fi fi-rr-comment text-secondary fs-5 comentar btn btn-dark w-100"
                                 data-bs-toggle="modal" data-bs-target="#modal{{ $loop->iteration }}"></i>
                         </div>
-                        <div class="col">
-                            <i class="fi fi-rs-arrows-retweet text-secondary fs-5 btn btn-dark w-100"></i>
-                        </div>
+                        
                         <div class="col">
 
                             <form method="post"
@@ -168,10 +166,8 @@
                                                 class="img rounded-circle pb-2" alt="..." width="35px">
                                             <p class="card-title d-inline fw-bold fs-5">
                                                 {{ $comentario['usuario']['nombre'] }}
-                                            <p class="fs-6 text-secondary d-inline fw-normal"></p>
-                                            <p class="text-secondary d-inline fs-6 fw-normal">- 4h</p>
-                                            <button type="button" class="btn btn-dark"><i
-                                                    class="fi fi-rr-star fs-6"></i></button>
+                                            
+                                        
                                             <div class="dropdown d-inline position-absolute top-0 end-0">
 
                                             </div>
